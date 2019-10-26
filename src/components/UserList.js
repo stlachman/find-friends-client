@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const UserList = () => {
@@ -19,7 +18,6 @@ const UserList = () => {
 
   return (
     <div>
-      <Link to="/profile">Profile</Link>
       <h2>User List</h2>
       <ul>
         {users &&
