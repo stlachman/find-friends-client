@@ -13,7 +13,7 @@ const UserList = () => {
         setUsers(res.data.users);
       })
       .catch(err => {
-        console.err(err);
+        console.error(err);
       });
   }, [currentID]);
 

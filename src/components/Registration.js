@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-const Registration = () => {
+const Registration = props => {
   const [userInfo, setUserInfo] = useState({
     username: "",
     password: "",
@@ -21,7 +21,9 @@ const Registration = () => {
     axiosWithAuth()
       .post("/auth/register", userInfo)
       .then(res => {
-        console.log(res);
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("id", res.data.id);
+        props.history.push("/");
       })
       .catch(err => {
         console.log(err);

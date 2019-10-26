@@ -35,7 +35,6 @@ const UserProfile = () => {
   const handleSubmit = e => {
     e.preventDefault();
     const id = localStorage.getItem("id");
-    console.log(profile);
     axiosWithAuth()
       .put(`/users/${id}`, profile)
       .then(res => {
