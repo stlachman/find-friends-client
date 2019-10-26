@@ -1,0 +1,119 @@
+import React, { useState } from "react";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+
+const UserProfile = () => {
+  const [profile, setProfile] = useState({
+    age: 0,
+    gender: "",
+    location: "",
+    description: "",
+    interests: []
+  });
+
+  const handleChange = e => {
+    setProfile({
+      ...profile,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleInterests = e => {
+    const item = e.target;
+    if (item.checked && !profile.interests.includes(item.value)) {
+      setProfile({
+        ...profile,
+        interests: [...profile.interests, item.value]
+      });
+    } else if (!item.checked && profile.interests.includes(item.value)) {
+      setProfile({
+        ...profile,
+        interests: profile.interests.filter(interest => interest !== item.value)
+      });
+    }
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    const id = localStorage.getItem("id");
+    console.log(profile);
+    axiosWithAuth()
+      .put(`/users/${id}`, profile)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log("here", err);
+      });
+  };
+
+  return (
+    <div>
+      <h2>Update Your Profile</h2>
+
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="age">Age</label>
+          <input
+            name="age"
+            value={profile.age}
+            onChange={handleChange}
+            type="number"
+          />
+        </div>
+        <div>
+          <label htmlFor="gender">Gender</label>
+          <input
+            name="gender"
+            value={profile.gender}
+            onChange={handleChange}
+            type="text"
+          />
+        </div>
+        <div>
+          <label htmlFor="location">Location</label>
+          <input
+            name="location"
+            value={profile.location}
+            onChange={handleChange}
+            type="text"
+          />
+        </div>
+        <div>
+          <label htmlFor="description">Description</label>
+          <textarea
+            value={profile.description}
+            onChange={handleChange}
+            name="description"
+            id="description"
+            cols="30"
+            rows="10"
+          ></textarea>
+        </div>
+        <div>
+          <input
+            onChange={handleInterests}
+            id="coding"
+            name="coding"
+            type="checkbox"
+            value="coding"
+          />
+          <label htmlFor="coding">Coding</label>
+        </div>
+
+        <div>
+          <input
+            onChange={handleInterests}
+            id="music"
+            name="music"
+            value="music"
+            type="checkbox"
+          />
+          <label htmlFor="music">Music</label>
+        </div>
+        <button type="submit">Update Profile</button>
+      </form>
+    </div>
+  );
+};
+
+export default UserProfile;
