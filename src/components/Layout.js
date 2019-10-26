@@ -1,14 +1,8 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
-import NavBar from "./Navbar";
 
 const Layout = ({ children }) => {
-  return (
-    <Container maxWidth="lg">
-      <NavBar />
-      {children}
-    </Container>
-  );
+  return <Container maxWidth="lg">{children}</Container>;
 };
 
 export default Layout;

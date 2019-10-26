@@ -1,13 +1,11 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import LoggedInNav from "./LoggedInNav";
+import LoggedOutNav from "./LoggedOutNav";
 
 const NavBar = () => {
   return (
-    <nav>
-      <ul>
-        <NavLink to="/">User List</NavLink>
-        <NavLink to="/profile">Profile</NavLink>
-      </ul>
+    <nav style={{ display: "flex", justifyContent: "space-between" }}>
+      {localStorage.getItem("user") ? <LoggedInNav /> : <LoggedOutNav />}
     </nav>
   );
 };

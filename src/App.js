@@ -6,11 +6,13 @@ import Login from "./components/Login";
 import UserList from "./components/UserList";
 import UserProfile from "./components/UserProfile";
 import Layout from "./components/Layout";
+import NavBar from "../src/components/Navbar";
 
 function App() {
   return (
     <Router>
       <Layout>
+        <NavBar />
         <Route path="/registration" component={Registration} />
         <Route path="/login" component={Login} />
         <PrivateRoute exact path="/" component={UserList} />
