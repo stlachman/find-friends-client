@@ -8,7 +8,7 @@ const UserList = () => {
   const currentID = localStorage.getItem("id");
   useEffect(() => {
     axiosWithAuth()
-      .get(`/users/${currentID}/all`)
+      .get(`/users/${currentID}/potentialFriends`)
       .then(res => {
         setUsers(res.data.users);
       })

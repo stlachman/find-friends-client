@@ -5,14 +5,17 @@ import PrivateRoute from "./components/PrivateRoute";
 import Login from "./components/Login";
 import UserList from "./components/UserList";
 import UserProfile from "./components/UserProfile";
+import Layout from "./components/Layout";
 
 function App() {
   return (
     <Router>
-      <Route path="/registration" component={Registration} />
-      <Route path="/login" component={Login} />
-      <PrivateRoute exact path="/" component={UserList} />
-      <PrivateRoute path="/profile" component={UserProfile} />
+      <Layout>
+        <Route path="/registration" component={Registration} />
+        <Route path="/login" component={Login} />
+        <PrivateRoute exact path="/" component={UserList} />
+        <PrivateRoute path="/profile" component={UserProfile} />
+      </Layout>
     </Router>
   );
 }
