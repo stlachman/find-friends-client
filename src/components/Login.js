@@ -21,6 +21,8 @@ const Login = props => {
       .then(res => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("id", res.data.id);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+
         props.history.push("/");
       })
       .catch(err => {

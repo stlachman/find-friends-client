@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const UserProfile = () => {
+  const userInfo = JSON.parse(localStorage.getItem("user"));
+
   const [profile, setProfile] = useState({
-    age: 0,
-    gender: "",
-    location: "",
-    description: "",
-    interests: []
+    age: userInfo.age || 0,
+    gender: userInfo.gender || "",
+    location: userInfo.location || "",
+    description: userInfo.description || "",
+    interests: userInfo.interests || []
   });
 
   const handleChange = e => {
@@ -38,11 +40,20 @@ const UserProfile = () => {
     axiosWithAuth()
       .put(`/users/${id}`, profile)
       .then(res => {
-        console.log(res);
+        const { age, gender, location, description, interests } = res.data.user;
+        setProfile({ age, gender, location, description, interests });
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ age, gender, location, description, interests })
+        );
       })
       .catch(err => {
         console.log("here", err);
       });
+  };
+
+  const checkedBox = interest => {
+    return profile.interests.includes(interest) ? "checked" : "";
   };
 
   return (
@@ -95,6 +106,7 @@ const UserProfile = () => {
             name="coding"
             type="checkbox"
             value="coding"
+            checked={checkedBox("coding")}
           />
           <label htmlFor="coding">Coding</label>
         </div>
@@ -106,6 +118,7 @@ const UserProfile = () => {
             name="music"
             value="music"
             type="checkbox"
+            checked={checkedBox("music")}
           />
           <label htmlFor="music">Music</label>
         </div>
